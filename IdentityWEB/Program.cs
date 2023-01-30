@@ -1,7 +1,29 @@
+
+
+
+using IdentityWEB.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var configuration = builder.Configuration;//DbCbaðlantýsý için ekliyoruzm
+//DB Baðlantytýsý
+builder.Services.AddDbContext<AppIdentityDbContext>(opt =>
+{
+    opt.UseSqlServer(configuration["ConnectionStrings:DefaultConnectionString"]);
+});
+
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>(); //IdentityUser isteniyor bizden. biz AppUserý IdentityUserdan türettiðim için AppUser ý alýyorum.
+                                                                                                        //IdentityRole ile ilgili bir miras iþlemim olmadýðý için direkt veriyorum.
+                                                                                                        //.AddEntityFrameworkStores<AppIdentityDbContext>();  bunlar nereye kaydedilecek diyorum
+
+
+
 builder.Services.AddRazorPages();
+
+
+
 //builder.Services.AddMvc();//projenin ayaða kalkamsý için tüm bileþenleri kurara.
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 
