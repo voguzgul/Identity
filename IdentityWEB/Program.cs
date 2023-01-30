@@ -14,10 +14,10 @@ builder.Services.AddDbContext<AppIdentityDbContext>(opt =>
     opt.UseSqlServer(configuration["ConnectionStrings:DefaultConnectionString"]);
 });
 
-builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>(); //IdentityUser isteniyor bizden. biz AppUserý IdentityUserdan türettiðim için AppUser ý alýyorum.
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppIdentityDbContext>(); //IdentityUser isteniyor bizden. biz AppUserý IdentityUserdan türettiðim için AppUser ý alýyorum.
                                                                                                         //IdentityRole ile ilgili bir miras iþlemim olmadýðý için direkt veriyorum.
                                                                                                         //.AddEntityFrameworkStores<AppIdentityDbContext>();  bunlar nereye kaydedilecek diyorum
-
+                                                                                                        //AppRole Olarak Deðiþtirildi.
 
 
 builder.Services.AddRazorPages();
